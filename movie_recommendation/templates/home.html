@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Home - Your Movie Platform{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Welcome to Your Movie Platform!</h1>
+        <p class="lead">Discover, share, and discuss the latest movies.</p>
+    </div>
+</div>
+
+<div class="container"> 
+    <div class="row">
+        {% for movie in movies %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ movie.poster.url }}" class="card-img-top" alt="{{ movie.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ movie.title }}</h5>
+                    <p class="card-text">{{ movie.description|truncatewords:20 }}</p>
+                    <a href="{% url 'movie_detail' movie.pk %}" class="btn btn-primary">View Details</a>
+                    <br><br>
+                    <a href="{% url 'movie_profile' movie_id=movie.id %}" class="btn btn-secondary">View Reviews</a>
+                </div>
+                
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p>No movies found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

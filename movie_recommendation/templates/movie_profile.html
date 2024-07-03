@@ -1,0 +1,17 @@
+<!-- movie_profile.html -->
+<h1>{{ movie.title }}</h1>
+<p>{{ movie.description }}</p>
+
+<h2>Reviews</h2>
+{% if reviews %}
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.user.username }}</strong> rated it {{ review.get_rating_display }}
+                <p>{{ review.comment }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No reviews yet.</p>
+{% endif %}

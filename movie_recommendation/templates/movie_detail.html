@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>{{ movie.title }}</h2>
+    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" class="img-fluid">
+    <p><strong>Description:</strong> {{ movie.description }}</p>
+    <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+    <p><strong>Actors:</strong> {{ movie.actors }}</p>
+    <p><strong>Category:</strong> {{ movie.category }}</p>
+    <p><strong>Trailer Link:</strong> <a href="{{ movie.trailer_link }}" target="_blank">Watch Trailer</a></p>
+    <p><strong>Added By:</strong> {{ movie.added_by.username }}</p>
+    <!-- Add review and rating section here if needed -->
+    <!-- Reviews section -->
+    <hr>
+    <h2>Reviews</h2>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+                <li>
+                    <strong>{{ review.user.username }}</strong> rated it {{ review.get_rating_display }}
+                    <p>{{ review.comment }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews yet.</p>
+    {% endif %}
+
+    <hr>
+    <h2>Add Your Review</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+</div>
+{% endblock %}
